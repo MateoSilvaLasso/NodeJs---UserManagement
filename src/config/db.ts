@@ -1,13 +1,14 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 dotenv.config();
 
-const connectiionString = process.env.MONGO_URL || "mongodb://localhost:27017/nodejs"
+const  connectionString = process.env.MONGO_URL || "mongodb://localhost:21017/nodejs";
 
-export const db = mongoose.connect(connectiionString)
-                    .then(() => console.log("mongo wao"))
-                        .catch((err) => console.error(err));
-
-
-
+export const db = mongoose.connect(connectionString)
+                                .then(
+                                    () => console.log("Connected to MongoDB") 
+                                )
+                                .catch(     
+                                    (err) => console.log(err)
+                                ); 
