@@ -1,4 +1,6 @@
 import express, {Express, Request, Response} from "express";
+import UserModel, {UserInput, UserDocument} from '../src/models/user.model'
+import EventModel from '../src/models/event.model'
 import dotenv from 'dotenv';
 import { db } from "./config/db";
 
@@ -27,6 +29,12 @@ app.post('/about', (req: Request, res: Response) => {
 db.then( () => {
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`)
-        
+        const user = UserModel.create({
+            name: "Carlos",
+            email: "Carlos@juan",
+            password : "12345",
+            role : "organizador"
+        })
+        console.log(user.then(user => user.name))
     })
 } );
