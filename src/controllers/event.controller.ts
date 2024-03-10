@@ -23,6 +23,7 @@ class EventController {
             return res.status(500).json(error)
         }
     }
+
     public async getEvents(req:Request, res:Response){
         try {
             const events = await EventService.findAll();
@@ -32,6 +33,7 @@ class EventController {
         }
         
     }
+
 
     public async getDisEvents(req: Request, res:Response){
         try{
@@ -85,6 +87,16 @@ class EventController {
         } catch (error) {
             return res.status(500).json(error)
         }
+    }
+
+    public async delete(req:Request, res:Response){
+        try {
+            const idEvent = req.params.idEvent;
+            const events = await EventService.delete(idEvent);
+            res.json(events);
+        } catch (error) {
+            return res.status(500).json(error)
+        }   
     }
 
     public async testiculo(req: Request, res: Response ){
