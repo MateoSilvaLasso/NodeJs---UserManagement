@@ -19,14 +19,14 @@ class EventController {
         }
     }
 
-    public async getEvents(req:Request, res:Response){
+    public async getEvents(req: Request, res: Response) {
         try {
-            const events = await EventService.findAll();
+            const userId = req.params.id;
+            const events = await EventService.findAll(userId);
             res.json(events);
         } catch (error) {
-            return res.status(500).json(error)
+            return res.status(500).json(error);
         }
-        
     }
 
 

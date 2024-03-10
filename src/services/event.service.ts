@@ -106,10 +106,18 @@ class EventService{
 
 
 
-    public async findAll(): Promise<EventDocument[]>{
+    public async findAll(userId: string): Promise<EventDocument[]> {
         try {
-            const event = await EventModel.find();
-            return event
+            const events = await EventModel.find();
+            const filteredEvents = events.map((event: EventDocument) => {
+                if (event.createdBy.toString() === userId) {
+                    return event;
+                } else {
+                    const filteredEvent = { ...event.toObject(), attendees: [] };
+                    return filteredEvent;
+                }
+            });
+            return filteredEvents;
         } catch (error) {
             throw error;
         }

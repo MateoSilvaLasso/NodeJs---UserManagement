@@ -6,6 +6,8 @@ import isOrganizer from '../middlewares/isOrganizer';
 
 const routes = (app: Express) => {
     
+
+    //Authenticated URLS
     app.post('/events', auth, isOrganizer, eventController.create);
     app.put('/events/:idEvent', auth, isOrganizer, eventController.update);
     app.delete('/events/:idEvent', auth, isOrganizer, eventController.delete);
@@ -20,22 +22,14 @@ const routes = (app: Express) => {
     app.get('/events/available/type', auth,eventController.getFilterByType);
     app.get('/:eventId/attendees', auth, isOrganizer, eventController.getAttendees);
 
-    
-
-    
+   
     // app.get('/events/:id', eventController.create);
     // app.get('/testiculo', auth, eventController.testiculo);
+    
+    //Not authenticaded urls
     app.post('/users', userController.create);
     app.post('/login/', userController.login);
-    
-
-    // app.get('/users', userController.getUsers);
-    // app.post('/users', validateSchema(userSchema),  userController.create);
-    // app.put('/users/:id', userController.update );
-    // app.delete('/users/:id', userController.delete );
-    // app.get('/users/profile', auth,  userController.findById);
-    // app.get('/users/:id', userController.findById);
-
+ 
 };
 
 export default routes;
