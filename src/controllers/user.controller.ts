@@ -16,13 +16,14 @@ class UserController{
             if(userExists){
                 return res.status(400).json({message: "User already exists"});
             }
-            const user: UserDocument = await userService.create(req.body as UserInput)
+            const user: UserDocument = await userService.create(req.body as UserInput);
 
             return res.status(201).json(user);
         } catch (error) {
             return res.status(500).json(error)
         }
     }
+
     public async getUsers(req:Request, res:Response){
         try {
             const users = await userService.findAll();
@@ -69,6 +70,7 @@ class UserController{
             return res.status(500).json(error)
         }
     }
+
     public async delete(req:Request, res:Response){
         try {
             const userExists: UserDocument | null = await userService.findById(req.params.id);
@@ -108,6 +110,20 @@ class UserController{
             return res.status(200).json(await userService.generateToken(userExists));
         } catch (error) {
             return res.status(500).json(error)
+        }
+    }
+
+    public async registerEvent(req: Request, res: Response): Promise<void> {
+        try {
+            // console.log("ASFDASDF")
+            const userId = req.params.id;
+            const eventId = req.params.eventId;
+
+            const user = await userService.registerEvent(userId, eventId);
+            res.status(200).json(user);
+        } catch (error) {
+            console.error('Error registering event for the user:', error);
+            res.status(500).json({ message: 'Error registering event for the user.' });
         }
     }
     

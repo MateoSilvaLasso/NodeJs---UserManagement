@@ -88,6 +88,20 @@ class UserService {
             throw error;
         }
     }
+
+    public async registerEvent(userId: string, eventId: string): Promise<UserDocument | null> {
+        try {
+            const user = await UserModel.findById(userId);
+            if (!user) {
+                throw new Error('User not found');
+            }
+            user.registeredEvents.push(eventId);
+            await user.save();
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 export default new UserService;

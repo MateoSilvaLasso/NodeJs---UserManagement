@@ -7,8 +7,9 @@ const routes = (app: Express) => {
     
     app.post('/events', auth, eventController.create);
     app.get('/events', auth,  eventController.getEvents);
-    app.get('/registered/events', auth, userController.getRegisteredEvents)
-    app.get('/created/events', auth, userController.getCreatedEvents);
+    app.post('/register/events/:eventId', auth, userController.registerEvent);
+    app.get('/register/events', auth, userController.getRegisteredEvents)
+    app.get('/create/events', auth, userController.getCreatedEvents);
     
     
     // app.get('/events/:id', eventController.create);
