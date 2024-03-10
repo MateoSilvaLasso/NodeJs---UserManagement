@@ -32,6 +32,15 @@ class EventController {
         }
         
     }
+
+    public async getDisEvents(req: Request, res:Response){
+        try{
+            const events = await EventService.findDisEvents();
+            res.json(events)
+        }catch (error){
+
+        }
+    }
     public async update(req:Request, res:Response){
         try {
             const eventExists: EventDocument | null = await EventService.findByTitle(req.params.title);

@@ -23,6 +23,19 @@ class EventService{
         }
     }
 
+    public async findDisEvents(): Promise<EventDocument[] | null> {
+        try {
+            const currentDate = new Date();
+
+            // Consultar los eventos con fecha mayor o igual a la fecha actual
+            const events = await EventModel.find({ date: { $gte: currentDate } });
+
+            return events;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     public async findByTitle(title:any): Promise<EventDocument | null>{
         try{
             const event = await EventModel.findOne({title:title});

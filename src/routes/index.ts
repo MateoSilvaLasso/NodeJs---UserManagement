@@ -10,6 +10,7 @@ const routes = (app: Express) => {
     app.post('/register/events/:eventId', auth, userController.registerEvent);
     app.get('/register/events', auth, userController.getRegisteredEvents)
     app.get('/create/events', auth, userController.getCreatedEvents);
+    app.get('/events/allows', auth, eventController.getDisEvents);
     
     
     // app.get('/events/:id', eventController.create);
