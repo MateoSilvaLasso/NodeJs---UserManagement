@@ -97,6 +97,13 @@ class UserService {
             }
             user.registeredEvents.push(eventId);
             await user.save();
+            const event = await EventModel.findById(eventId);
+            if (!event) {
+                throw new Error('Event not found');
+            }
+            const attendeeUser = user as UserDocument;
+            event.attendees.push(attendeeUser);
+            await event.save();
             return user;
         } catch (error) {
             throw error;

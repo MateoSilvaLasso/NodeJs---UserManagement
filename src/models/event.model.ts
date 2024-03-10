@@ -1,5 +1,5 @@
 import { Timestamp } from "mongodb";
-import mongoose, { Types } from 'mongoose';
+import mongoose, { Types, Schema  } from 'mongoose';
 import { UserDocument } from './user.model';
 import user from './user.model';
 
@@ -10,6 +10,7 @@ export interface EventInput {
     hour: Date,
     place: string,
     createdBy: {type: mongoose.Schema.Types.ObjectId, ref: "User"}
+    attendees: Array<Schema.Types.ObjectId | UserDocument>;
 }
 
 export interface EventDocument extends EventInput, mongoose.Document {
@@ -24,8 +25,8 @@ const eventSchema = new mongoose.Schema({
     date: {type: Date, required:true},
     hour: {type: Date, required: true},
     place: {type: String, required:true},
-    createdBy: {type: mongoose.Schema.Types.ObjectId, ref: "User", require: false}
-
+    createdBy: {type: mongoose.Schema.Types.ObjectId, ref: "User", require: false},
+    attendees: Array<Schema.Types.ObjectId | UserDocument>
 });
 
 const event = mongoose.model<EventDocument>('Event', eventSchema);

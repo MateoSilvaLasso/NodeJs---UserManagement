@@ -146,6 +146,19 @@ class EventService{
         }
     }
 
+    public async getAttendees(eventId: string): Promise<UserDocument[]> {
+        try {
+            const event = await EventModel.findById<EventDocument>(eventId).populate('attendees').exec();
+            if (!event) {
+                throw new Error('Event not found');
+            }
+            const attendees: UserDocument[] = event.attendees as UserDocument[];
+            return attendees;
+        } catch (error) {
+            throw error;
+        }
+    };
+
 }
 
 
