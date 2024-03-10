@@ -1,11 +1,22 @@
 import EventModel, {EventInput, EventDocument} from '../models/event.model'
+import UserModel, {UserDocument} from '../models/user.model'
 
 
 class EventService{
 
-    public async create(userInput: EventInput): Promise<EventDocument> {
+    public async create(id:any, eventInput: EventInput): Promise<EventDocument> {
         try{
-            const event = await EventModel.create(userInput);
+            //console.log(id);
+            eventInput.createdBy = id;
+            const event = await EventModel.create(eventInput);
+            
+            const user: UserDocument | null = await UserModel.findById(id);
+                if (user) {
+                    user.createdEvents.push(event._id);
+                    await user.save();
+                } else {
+                    throw new Error('User not found');
+                }
             return event;
         }catch(error){
             throw error;

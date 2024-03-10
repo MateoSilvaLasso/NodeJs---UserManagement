@@ -1,12 +1,21 @@
 import { Express } from "express";
 import userController from "../controllers/user.controller";
 import eventController from "../controllers/event.controller";
+import auth from '../middlewares/auth';
 
 const routes = (app: Express) => {
-
-    app.post('/users', eventController.create);
+    
+    app.post('/events', auth, eventController.create);
+    app.get('/events', auth,  eventController.getEvents);
+    app.get('/registered/events', auth, userController.getRegisteredEvents)
+    app.get('/created/events', auth, userController.getCreatedEvents);
+    
+    
+    // app.get('/events/:id', eventController.create);
+    app.get('/testiculo', auth, eventController.testiculo);
+    app.post('/users', userController.create);
     app.post('/login/', userController.login);
-
+    
 
     // app.get('/users', userController.getUsers);
     // app.post('/users', validateSchema(userSchema),  userController.create);

@@ -30,17 +30,6 @@ class UserService {
         }
     }
 
-    /*
-    public generateToken(user: UserDocument): string {
-        try {
-            return jwt.sign({user_id: user.id, email:user.email}, process.env.JWT_SECRET || "secret", {expiresIn: "30m"});
-        } catch (error) {
-            throw error;
-        }
-    }
-    */
-
-
     public async findAll(): Promise<UserDocument[]>{
         try {
             const users = await UserModel.find();
@@ -68,7 +57,7 @@ class UserService {
         }
     }
 
-    public async findEvents(id:string): Promise<EventDocument[] | null> {
+    public async findRegisteredEvents(id:any): Promise<EventDocument[] | null> {
         try{
             const events = await UserModel.findById(id).populate('registeredEvents').exec();
             if (!events) {
@@ -80,9 +69,21 @@ class UserService {
         }
     }
 
+    public async findCreatedEvents(id: any): Promise<EventDocument[] | null> {
+        try {
+            const user: UserDocument | null = await UserModel.findById(id).populate('createdEvents').exec();
+            if (!user) {
+                return null;
+            }
+            return user.createdEvents as EventDocument[];
+        } catch (error) {
+            throw error;
+        }
+    }
+
     public generateToken(user: UserDocument): string {
         try { 
-            return jwt.sign({user_id: user.id, email:user.email}, process.env.JWT_SECRET || "secret", {expiresIn: "5m"});
+            return jwt.sign({user_id: user.id, email:user.email}, process.env.JWT_SECRET || "secret", {expiresIn: "20m"});
         } catch (error) {
             throw error;
         }

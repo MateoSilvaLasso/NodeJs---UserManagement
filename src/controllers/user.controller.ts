@@ -3,7 +3,8 @@ import userService from '../services/user.service';
 import { UserDocument, UserInput } from "../models/user.model";
 import { TokenExpiredError } from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
+import {EventDocument} from '../models/event.model'
+    
 class UserController{
 
     public async create(req:Request, res: Response){
@@ -31,6 +32,26 @@ class UserController{
         }
         
     }
+
+    public async getRegisteredEvents(req: Request, res:Response){
+        try{
+            const registered = await userService.findRegisteredEvents(req.params.id);
+            res.json(registered as EventDocument[]);
+        }catch(error) {
+            return res.status(500).json(error)
+        }
+    }
+
+    public async getCreatedEvents(req: Request, res:Response){
+        try{
+            const registered = await userService.findCreatedEvents(req.params.id);
+            //console.log(req.params.id)
+            res.json(registered as EventDocument[]);
+        }catch(error) {
+            return res.status(500).json(error)
+        }
+    }
+
     public async update(req:Request, res:Response){
         try {
             const userExists: UserDocument | null = await userService.findById(req.params.id);

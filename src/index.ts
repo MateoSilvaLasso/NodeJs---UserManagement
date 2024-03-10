@@ -3,6 +3,7 @@ import UserModel, {UserInput, UserDocument} from '../src/models/user.model'
 import EventModel from '../src/models/event.model'
 import dotenv from 'dotenv';
 import { db } from "./config/db";
+import routes from "./routes";
 
 const app: Express = express();
 
@@ -25,11 +26,14 @@ app.post('/about', (req: Request, res: Response) => {
     res.send('name: ' + req.body.name);
 });
 
+//Importamos routes
+routes(app);
+
 
 db.then( () => {
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
-        createMateo();
+        // createMateo();
     })
 } );
 
