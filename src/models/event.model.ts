@@ -1,7 +1,7 @@
 import { Timestamp } from "mongodb";
 import mongoose from "mongoose";
 
-export interface eventInput {
+export interface EventInput {
     title: string,
     description: string,
     date: Date,
@@ -9,14 +9,14 @@ export interface eventInput {
     place: string
 }
 
-export interface eventDocument extends eventInput, mongoose.Document {
+export interface EventDocument extends EventInput, mongoose.Document {
     CreatedAt : Date;
     updatedAt: Date;
     deletedAt: Date;
 }
 
 const eventSchema = new mongoose.Schema({
-    title : {type: String, required: true},
+    title : {type: String, required: true, unique : true},
     description : {type: String, required: true},
     date: {type: Date, required:true},
     hour: {type: Date, required: true},
@@ -24,6 +24,6 @@ const eventSchema = new mongoose.Schema({
 
 });
 
-const event = mongoose.model<eventDocument>('Event', eventSchema);
+const event = mongoose.model<EventDocument>('Event', eventSchema);
 
 export default event; 

@@ -28,13 +28,31 @@ app.post('/about', (req: Request, res: Response) => {
 
 db.then( () => {
     app.listen(port, () => {
-        console.log(`Server is running on port ${port}`)
-        const user = UserModel.create({
-            name: "Carlos",
-            email: "Carlos@juan",
-            password : "12345",
-            role : "organizador"
-        })
-        console.log(user.then(user => user.name))
+        console.log(`Server is running on port ${port}`);
+        createMateo();
     })
 } );
+
+
+async function createMateo() {
+    
+    const diaDeLaMujer = await EventModel.create({
+        title: "Dia de la mujer", 
+        description: "Celebrar el dia de la mujer", 
+        date: Date.now(), 
+        hour: Date.now(), 
+        place: "Universidad ICESI"
+
+    });
+
+    console.log("Dia de la mujer:" + diaDeLaMujer);
+
+    const user = await UserModel.create({
+        name: "Carlos",
+        email: "Carlos@juan",
+        password : "12345",
+        role : "organizador", 
+        registeredEvents: [diaDeLaMujer]
+    })
+
+}
