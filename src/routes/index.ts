@@ -11,6 +11,9 @@ const routes = (app: Express) => {
     app.get('/register/events', auth, userController.getRegisteredEvents)
     app.get('/create/events', auth, userController.getCreatedEvents);
     app.get('/events/allows', auth, eventController.getDisEvents);
+    app.get('/events/allows/date', auth, eventController.getFilterByDate);
+    app.get('/events/allows/place', auth,eventController.getFilterByPlace);
+    app.get('/events/allows/type', auth,eventController.getFilterByType);
     
     
     // app.get('/events/:id', eventController.create);

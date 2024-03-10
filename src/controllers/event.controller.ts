@@ -38,9 +38,37 @@ class EventController {
             const events = await EventService.findDisEvents();
             res.json(events)
         }catch (error){
-
+            return res.status(500).json(error)
         }
     }
+
+    public async getFilterByDate(req:Request, res:Response){
+        try{
+            const events = await EventService.findDisDateEvents(req.body.date)
+            res.json(events)
+        }catch(error){
+            return res.status(500).json(error)
+        }
+    }
+
+    public async getFilterByPlace(req:Request, res: Response){
+        try{
+            const events = await EventService.findDisPlaceEvents(req.body.place);
+            res.json(events)
+        }catch(error){
+            return res.status(500).json(error)
+        }
+    }
+
+    public async getFilterByType(req:Request, res:Response){
+        try{
+            const events = await EventService.findDisTypeEvents(req.body.title);
+            res.json(events)
+        }catch(error){
+            return res.status(500).json(error)
+        }
+    }
+
     public async update(req:Request, res:Response){
         try {
             const eventExists: EventDocument | null = await EventService.findByTitle(req.params.title);

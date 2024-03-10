@@ -27,9 +27,68 @@ class EventService{
         try {
             const currentDate = new Date();
 
-            // Consultar los eventos con fecha mayor o igual a la fecha actual
+            
             const events = await EventModel.find({ date: { $gte: currentDate } });
+            return events;
+        } catch (error) {
+            throw error;
+        }
+    }
 
+    public async findDisDateEvents(date: Date): Promise<EventDocument[] | null> {
+        try {
+            
+            const currentDate = new Date();
+    
+            
+            const events = await EventModel.find({
+                $and: [
+                    { date: { $gte: currentDate } }, 
+                    {date:date}
+                ]
+            });
+            
+            
+            return events;
+        } catch (error) {
+            throw error;
+        }
+    }
+    
+    public async findDisPlaceEvents(place:string): Promise<EventDocument[] | null> {
+        try {
+            
+            const currentDate = new Date();
+    
+            
+            const events = await EventModel.find({
+                $and: [
+                    { date: { $gte: currentDate } }, 
+                    {place:place}
+                ]
+            });
+            
+            
+            return events;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async findDisTypeEvents(type:string): Promise<EventDocument[] | null> {
+        try {
+            
+            const currentDate = new Date();
+    
+            
+            const events = await EventModel.find({
+                $and: [
+                    { date: { $gte: currentDate } }, 
+                    {title:type}
+                ]
+            });
+            
+            
             return events;
         } catch (error) {
             throw error;
