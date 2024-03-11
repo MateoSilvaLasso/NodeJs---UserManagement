@@ -1,0 +1,205 @@
+
+POST Crear Nuevo Usuario:
+
+URL en POSTMAN: http://localhost:3000/users
+Descripción: Permite crear un nuevo usuario en el sistema.
+
+Ejemplos(Hay que pasarle esto en el body en formato JSON):
+
+{
+    "name": "Juan Perez",
+    "email": "juanperez89@gmail.com",
+    "password": "123",
+    "role": "organizador"
+},
+{
+    "name": "Maria Gomez",
+    "email": "mariagomez2024@gmail.com",
+    "password": "456",
+    "role": "asistente"
+},
+{
+    "name": "Carlos Martinez",
+    "email": "carlosmartinez@gmail.com",
+    "password": "789",
+    "role": "asistente"
+},
+{
+    "name": "Ana Rodriguez",
+    "email": "anarodriguez75@gmail.com",
+    "password": "012",
+    "role": "organizador"
+}
+
+POST Iniciar Sesión:
+
+URL: http://localhost:3000/login
+Descripción: Permite a un usuario iniciar sesión en el sistema.
+
+Ejemplos(Hay que pasarle esto en el body en formato JSON):
+
+{
+    "email": "juanperez89@gmail.com",
+    "password": "123"
+},
+{
+    "email": "mariagomez2024@gmail.com",
+    "password": "456"
+},
+{
+    "email": "carlosmartinez@gmail.com",
+    "password": "789"
+},
+{
+    "email": "anarodriguez75@gmail.com",
+    "password": "012"
+}
+
+POST Crear Nuevo Evento:
+
+URL en POSTMAN: http://localhost:3000/events
+Descripción: Permite crear un nuevo evento en el sistema.
+
+Ejemplos(Hay que pasarle esto en el body en formato JSON):
+
+{
+    "title": "Conferencia de Tecnología 2024",
+    "description": "Una conferencia emocionante sobre las últimas tecnologías.",
+    "date": "2024-05-20",
+    "hour": "2024-05-20T11:26:00-05:00",
+    "place": "Centro de Convenciones"
+},
+{
+    "title": "Festival de Música 'Sonidos del Verano'",
+    "description": "¡Disfruta de la música en vivo de artistas locales!",
+    "date": "2024-07-15",
+    "hour": "2024-07-15T10:26:00-05:00",
+    "place": "Parque Central"
+},
+{
+    "title": "Exposición de Arte Contemporáneo",
+    "description": "Una muestra imperdible de arte moderno.",
+    "date": "2024-06-10",
+    "hour": "2024-06-10T08:26:00-05:00",
+    "place": "Galería de Arte"
+},
+{
+    "title": "Carrera de Caridad 'Corre por una Causa'",
+    "description": "¡Apoya una buena causa y participa en esta carrera solidaria!",
+    "date": "2024-08-05",
+    "hour": "2024-08-05T01:26:00-05:00",
+    "place": "Parque Metropolitano"
+}
+
+POST Registro en Evento:
+
+URL: http://localhost:3000/register/events/:eventId
+Descripción: Permite a un usuario registrarse en un evento específico. No es necesario
+colocar algo en el body en formato JSON, solo en el /:eventId de la ruta se le debe
+pasar el ID del evento asignado automaticamente por Mongoose al que se quiere registrar
+
+GET Eventos Disponibles:
+
+URL: http://localhost:3000/events/available
+Descripción: Esta ruta devuelve una lista de todos los eventos disponibles, es decir, que no haya pasado la fecha.
+
+GET Eventos por Fecha:
+
+URL: http://localhost:3000/events/available/date
+Descripción: Devuelve una lista de eventos disponibles ordenados por fecha.
+
+Ejemplos(Hay que pasarle esto en el body en formato JSON):
+
+{
+    "date": "2024-05-20"
+},
+{
+    "date": "2024-07-15"
+},
+{
+    "date": "2024-06-10"
+},
+{
+    "date": "2024-08-05"
+}
+
+GET Eventos por Lugar:
+
+URL: http://localhost:3000/events/available/place
+Descripción: Devuelve una lista de eventos disponibles ordenados por lugar.
+
+Ejemplos(Hay que pasarle esto en el body en formato JSON):
+
+{
+    "place": "Centro de Convenciones"
+},
+{
+    "place": "Parque Central"
+},
+{
+    "place": "Galería de Arte"
+},
+{
+    "place": "Parque Metropolitano"
+}
+
+GET Eventos por Tipo:
+
+URL: http://localhost:3000/events/available/type
+Descripción: Devuelve una lista de eventos disponibles ordenados por tipo.
+
+Ejemplos(Hay que pasarle esto en el body en formato JSON):
+
+{
+    "title": "Conferencia de Tecnología 2024"
+},
+{
+    "title": "Festival de Música 'Sonidos del Verano'"
+},
+{
+    "title": "Exposición de Arte Contemporáneo"
+},
+{
+    "title": "Carrera de Caridad 'Corre por una Causa'"
+}
+
+GET Asistentes de un Evento:
+
+URL: http://localhost:3000/events/:eventId/attendees
+Descripción: Devuelve una lista de asistentes registrados para un evento específico. En el /:eventId
+se le debe pasar el ID del evento asignado automaticamente por Mongoose, esta lista solo la pueden
+ver los usuarios con el rol de organizador.
+
+GET Todos los Eventos:
+
+URL: http://localhost:3000/events
+Descripción: Devuelve una lista de todos los eventos, incluidos los pasados y los futuros. No necesita 
+nada en el body, solo estar autenticado con el usuario.
+
+GET Eventos Creados por un Usuario:
+
+URL: http://localhost:3000/create/events
+Descripción: Devuelve una lista de eventos creados por un usuario específico. No necesita nada en
+el body, solo estar autenticado con el usuario.
+
+GET Eventos Registrados por un Usuario:
+
+URL: http://localhost:3000/register/events
+Descripción: Devuelve una lista de eventos en los que un usuario está registrado. No necesita nada en
+el body, solo estar autenticado con el usuario.
+
+PUT Actualizar Evento:
+
+URL: http://localhost:3000/events/:idEvent
+Descripción: Permite actualizar los detalles de un evento existente. En el /:idEvent
+se le debe pasar el ID del evento asignado automaticamente por Mongoose, solo puede
+ser actuaizado por los usuarios con rol organizador.
+
+DELETE Eliminar Evento:
+
+URL: http://localhost:3000/events/:idEvent
+Descripción: Permite eliminar un evento existente del sistema. En el /:idEvent
+se le debe pasar el ID del evento asignado automaticamente por Mongoose, solo puede
+ser eliminado por los usuarios con rol organizador.
+
+
