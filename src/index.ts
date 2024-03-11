@@ -1,6 +1,4 @@
 import express, {Express, Request, Response} from "express";
-import UserModel, {UserInput, UserDocument} from '../src/models/user.model'
-import EventModel from '../src/models/event.model'
 import dotenv from 'dotenv';
 import { db } from "./config/db";
 import routes from "./routes";
@@ -38,25 +36,3 @@ db.then( () => {
 } );
 
 
-async function createMateo() {
-    
-    const diaDeLaMujer = await EventModel.create({
-        title: "Dia de la mujer", 
-        description: "Celebrar el dia de la mujer", 
-        date: Date.now(), 
-        hour: Date.now(), 
-        place: "Universidad ICESI"
-
-    });
-
-    console.log("Dia de la mujer:" + diaDeLaMujer);
-
-    const user = await UserModel.create({
-        name: "Carlos",
-        email: "Carlos@juan",
-        password : "12345",
-        role : "organizador", 
-        registeredEvents: [diaDeLaMujer]
-    })
-
-}
