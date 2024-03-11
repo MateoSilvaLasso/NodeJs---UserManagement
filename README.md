@@ -1,5 +1,11 @@
 # README NodeJS-UserManagement
 
+**Integrantes del proyecto:**
+
+* Luis Charria
+* Juan Jose Diaz
+* Mateo Silva Lasso
+
 ## Configuración del Proyecto
 
 Para configurar el proyecto, el primer paso es clonar el repositorio de GitHub y abrir la carpeta correspondiente al proyecto.
